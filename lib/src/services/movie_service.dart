@@ -14,11 +14,23 @@ class MoviesService {
 
     final movies = Movies.fromJsonList(decodeData['results']);
 
+    // Test Get Populars
+    print(movies.items[0].title);
+
     return movies.items;
   }
 
   Future<List<Movie>> getNowPlaying() async {
     final url = Uri.https(Constants.URL, Constants.ROUTES['now_playing'], {
+      'api_key': Constants.API_KEY,
+      'language': Constants.LANGUAGE
+    });
+
+    return await _processResponse(url);
+  }
+
+  Future<List<Movie>> getPopulars() async {
+    final url = Uri.https(Constants.URL, Constants.ROUTES['populars'], {
       'api_key': Constants.API_KEY,
       'language': Constants.LANGUAGE
     });

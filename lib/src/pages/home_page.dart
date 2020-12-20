@@ -17,7 +17,8 @@ class HomePage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
-            _swiperCards()
+            _swiperCards(),
+            _footer()
           ],
         )
       ),
@@ -39,6 +40,20 @@ class HomePage extends StatelessWidget {
           );
         }
       },
+    );
+  }
+
+  Widget _footer() {
+
+    // Test Get Populars
+    this.moviesService.getPopulars();
+
+    return Container(
+      child: Column(
+        children: <Widget>[
+          Text('Footer')
+        ],
+      ),
     );
   }
 }
