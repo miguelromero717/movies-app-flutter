@@ -1,3 +1,5 @@
+import 'package:movies_app/src/common/constants.dart' as Constants;
+
 class Movie {
   String uniqueId;
   int voteCount;
@@ -47,5 +49,13 @@ class Movie {
     adult = json['adult'];
     overview = json['overview'];
     releaseDate = json['release_date'];
+  }
+
+  String getPosterImage() {
+    if (posterPath != null) {
+      return Constants.URL_POSTER_IMG + '$posterPath';
+    } else {
+      return Constants.NO_IMAGE_WEB;
+    }
   }
 }
