@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
+import 'package:movies_app/src/common/constants.dart' as Constants;
 import 'package:movies_app/src/services/movie_service.dart';
-import 'package:movies_app/src/widgets/swiper_card.dart';
+import 'package:movies_app/src/widgets/card_swiper.dart';
+import 'package:movies_app/src/widgets/movies_horizontal.dart';
 
 class HomePage extends StatelessWidget {
 
@@ -18,7 +20,7 @@ class HomePage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
             _swiperCards(),
-            _footer()
+            _footer(context)
           ],
         )
       ),
@@ -43,15 +45,31 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Widget _footer() {
+  Widget _footer(BuildContext context) {
 
     // Test Get Populars
     this.moviesService.getPopulars();
 
     return Container(
+      width: double.infinity,
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text('Footer')
+          Container(
+            padding: EdgeInsets.only(left: 20.0),
+            child: Text(Constants.LABELS['popular'], style: Theme.of(context).textTheme.headline6),
+          ),
+          SizedBox(height: 5.0),
+          FutureBuilder(
+            future: this.moviesService.getPopulars(),
+            builder: (BuildContext context, AsyncSnapshot<List> asyncSnapshot) {
+              if (asyncSnapshot.hasData) {
+                return MoviesHorizontal(movies: asyncSnapshot.data);
+              } else {
+                return CircularProgressIndicator();
+              }
+            },
+          )
         ],
       ),
     );

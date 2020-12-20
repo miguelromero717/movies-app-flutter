@@ -14,9 +14,6 @@ class MoviesService {
 
     final movies = Movies.fromJsonList(decodeData['results']);
 
-    // Test Get Populars
-    print(movies.items[0].title);
-
     return movies.items;
   }
 
