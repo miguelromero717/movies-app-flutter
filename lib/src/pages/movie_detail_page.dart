@@ -1,7 +1,15 @@
 import 'package:flutter/material.dart';
+
+import 'package:movies_app/src/common/constants.dart' as Constants;
+
+import 'package:movies_app/src/model/actor.dart';
 import 'package:movies_app/src/model/movie.dart';
+import 'package:movies_app/src/services/movie_service.dart';
 
 class MovieDetail extends StatelessWidget {
+
+  final moviesService = MoviesService();
+
   @override
   Widget build(BuildContext context) {
     final Movie movie = ModalRoute.of(context).settings.arguments;
@@ -16,7 +24,8 @@ class MovieDetail extends StatelessWidget {
             height: 10.0,
           ),
           _posterTitle(context, movie),
-          _description(movie)
+          _description(movie),
+          _cast(movie),
         ]))
       ],
     ));
@@ -37,8 +46,8 @@ class MovieDetail extends StatelessWidget {
         ),
         background: FadeInImage(
           image: NetworkImage(movie.getBackdropImage()),
-          placeholder: AssetImage('assets/img/loading.gif'),
-          fadeInDuration: Duration(milliseconds: 150),
+          placeholder: AssetImage(Constants.NO_IMAGE),
+          fadeInDuration: Duration(milliseconds: 100),
           fit: BoxFit.cover,
         ),
       ),
@@ -84,6 +93,57 @@ class MovieDetail extends StatelessWidget {
       child: Text(
         movie.overview,
         textAlign: TextAlign.justify,
+      ),
+    );
+  }
+
+  Widget _cast(Movie movie) {
+    return FutureBuilder(
+      future: moviesService.getCast(movie.id.toString()),
+      builder: (BuildContext context, AsyncSnapshot<List> snapshot) {
+        if(snapshot.hasData){
+          return _castPageView(snapshot.data);
+        } else {
+          return CircularProgressIndicator();
+        }
+      },
+    );
+  }
+
+  Widget _castPageView(List<Actor> actors) {
+    return SizedBox(
+      height: 200.0,
+      child: PageView.builder(
+        controller: PageController(
+          initialPage: 1,
+          viewportFraction: 0.3
+        ),
+        itemCount: actors.length,
+        itemBuilder: (context, i) => _cardActor(actors[i]),
+      )
+    );
+  }
+
+  Widget _cardActor(Actor actor) {
+    return Container(
+      child: Column(
+        children: <Widget>[
+          ClipRRect(
+            borderRadius: BorderRadius.circular(20.0),
+            child: FadeInImage(
+              height: 150.0,
+              image: NetworkImage(actor.getProfileImage()),
+              placeholder: AssetImage(Constants.LOADING_IMAGE),
+              fadeInDuration: Duration(milliseconds: 100),
+              fit: BoxFit.cover,
+            ),
+          ),
+          SizedBox(height: 10.0,),
+          Text(
+            actor.name,
+            overflow: TextOverflow.ellipsis
+          )
+        ],
       ),
     );
   }

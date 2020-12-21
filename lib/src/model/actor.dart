@@ -32,7 +32,7 @@ class Actor {
     profilePath = json['profile_path'];
   }
 
-  String getPosterImage() {
+  String getProfileImage() {
     if (profilePath != null) {
       return Constants.URL_POSTER_IMG + '$profilePath';
     } else {

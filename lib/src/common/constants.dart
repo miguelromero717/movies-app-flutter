@@ -9,6 +9,7 @@ const Map<String, String> ROUTES = {
 };
 const String URL_POSTER_IMG = 'https://image.tmdb.org/t/p/w500/';
 const String NO_IMAGE = 'assets/img/no-image.jpg';
+const String LOADING_IMAGE = 'assets/img/loading.gif';
 const String NO_IMAGE_WEB =
     'https://cdn11.bigcommerce.com/s-auu4kfi2d9/stencil/59512910-bb6d-0136-46ec-71c445b85d45/e/933395a0-cb1b-0135-a812-525400970412/icons/icon-no-image.svg';
 const Map<String, String> LABELS = {'popular': 'Popular Movies'};
