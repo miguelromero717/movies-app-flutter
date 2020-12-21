@@ -16,6 +16,7 @@ class HomePage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.indigoAccent,
         title: Text('Movies App'),
       ),
       body: Container(
