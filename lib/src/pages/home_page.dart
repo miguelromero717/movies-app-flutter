@@ -11,6 +11,9 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    moviesService.getPopulars();
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Movies App'),
@@ -47,9 +50,6 @@ class HomePage extends StatelessWidget {
 
   Widget _footer(BuildContext context) {
 
-    // Test Get Populars
-    this.moviesService.getPopulars();
-
     return Container(
       width: double.infinity,
       child: Column(
@@ -60,11 +60,14 @@ class HomePage extends StatelessWidget {
             child: Text(Constants.LABELS['popular'], style: Theme.of(context).textTheme.headline6),
           ),
           SizedBox(height: 5.0),
-          FutureBuilder(
-            future: this.moviesService.getPopulars(),
+          StreamBuilder(
+            stream: this.moviesService.popularMoviesStream,
             builder: (BuildContext context, AsyncSnapshot<List> asyncSnapshot) {
               if (asyncSnapshot.hasData) {
-                return MoviesHorizontal(movies: asyncSnapshot.data);
+                return MoviesHorizontal(
+                  movies: asyncSnapshot.data,
+                  nextPage: this.moviesService.getPopulars,
+                );
               } else {
                 return CircularProgressIndicator();
               }
