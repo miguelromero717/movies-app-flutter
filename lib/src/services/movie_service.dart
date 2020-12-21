@@ -4,6 +4,8 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 import 'package:movies_app/src/common/constants.dart' as Constants;
+import 'package:movies_app/src/model/actor.dart';
+import 'package:movies_app/src/model/cast.dart';
 import 'package:movies_app/src/model/movie.dart';
 import 'package:movies_app/src/model/movies.dart';
 
@@ -65,4 +67,19 @@ class MoviesService {
 
     return response;
   }
+
+  Future<List<Actor>> getCast(String movieId) async {
+    final url = Uri.https(Constants.URL, Constants.ROUTES['cast'].replaceAll('movie-id', movieId), {
+      'api_key': Constants.API_KEY,
+      'language': Constants.LANGUAGE
+    });
+
+    final response = await http.get(url);
+    final decodedData = json.decode(response.body);
+
+    final cast = new Cast.fromJsonList(decodedData['cast']);
+
+    return cast.actors;
+  }
+
 }

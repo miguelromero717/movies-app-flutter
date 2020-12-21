@@ -4,7 +4,8 @@ const String URL = 'api.themoviedb.org';
 const String LANGUAGE = 'es-ES';
 const Map<String, String> ROUTES = {
   'now_playing': API_VERSION + '/movie/now_playing',
-  'populars': API_VERSION + '/movie/popular'
+  'populars': API_VERSION + '/movie/popular',
+  'cast': API_VERSION + '/movie/movie-id/credits',
 };
 const String URL_POSTER_IMG = 'https://image.tmdb.org/t/p/w500/';
 const String NO_IMAGE = 'assets/img/no-image.jpg';
