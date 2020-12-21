@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movies_app/src/pages/home_page.dart';
+import 'package:movies_app/src/pages/movie_detail_page.dart';
 
 class MoviesApp extends StatelessWidget {
   @override
@@ -8,7 +9,10 @@ class MoviesApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Movies App',
       initialRoute: '/',
-      routes: {'/': (BuildContext context) => HomePage()},
+      routes: {
+        '/': (BuildContext context) => HomePage(),
+        'detail': (BuildContext context) => MovieDetail()
+      },
     );
   }
 }
