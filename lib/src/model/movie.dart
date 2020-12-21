@@ -58,4 +58,12 @@ class Movie {
       return Constants.NO_IMAGE_WEB;
     }
   }
+
+  String getBackdropImage() {
+    if (backdropPath != null) {
+      return Constants.URL_POSTER_IMG + '$backdropPath';
+    } else {
+      return Constants.NO_IMAGE_WEB;
+    }
+  }
 }
