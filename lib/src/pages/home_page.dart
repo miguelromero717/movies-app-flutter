@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:movies_app/src/common/constants.dart' as Constants;
 import 'package:movies_app/src/services/movie_service.dart';
+import 'package:movies_app/src/services/search_delegate.dart';
 import 'package:movies_app/src/widgets/card_swiper.dart';
 import 'package:movies_app/src/widgets/movies_horizontal.dart';
 
@@ -16,8 +17,23 @@ class HomePage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
+        centerTitle: false,
         backgroundColor: Colors.indigoAccent,
         title: Text('Movies App'),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(
+              Icons.search,
+            ),
+            onPressed: () {
+              showSearch(
+                context: context,
+                delegate: MovieSearch(),
+                query: ''
+              );
+            },
+          ),
+        ],
       ),
       body: Container(
         child: Column(

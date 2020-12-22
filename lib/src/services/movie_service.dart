@@ -82,4 +82,14 @@ class MoviesService {
     return cast.actors;
   }
 
+  Future<List<Movie>> searchMovie(query) async {
+    final url = Uri.https(Constants.URL, Constants.ROUTES['search'], {
+      'api_key'  : Constants.API_KEY,
+      'language' : Constants.LANGUAGE,
+      'query'    : query
+    });
+
+    return await _processResponse(url);
+  }
+
 }
